@@ -1,0 +1,30 @@
+﻿@model Advert
+
+<div class="container">
+    <div class="row">
+        <h5>Zdjęcia</h5>
+        @if (ViewBag.UserId == Model.AppUserId)
+        {
+            <a class="fa fa-bars" id="manageImagesIcon" aria-hidden="true" asp-controller="AdvertImage" asp-action="ManageImages" asp-route-advertId="@Model.AdvertId"></a>
+        }
+    </div>
+    @Html.Partial("AdvertImageGallery", Model.AdvertImages)
+</div>
+
+<div class="container">
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tytuł</dt>
+        <dd>@Model.Title</dd>
+        <dt>Cena</dt>
+        <dd>@Model.Price</dd>
+        <dt>Kategoria</dt>
+        <dd>@Model.Category</dd>
+        <dt>Opis</dt>
+        <dd>@Model.Description</dd>
+    </dl>
+</div>
+<hr />
+<small>Ogłoszenie zostało dodane <b>@Model.CreatedAt</b></small>
+<br />
+<small>przez <a asp-action="Details" asp-controller="Profile" asp-route-userId="@Model.AppUser.Id">@Model.AppUser.UserName</a></small>

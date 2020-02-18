@@ -1,0 +1,19 @@
+﻿@model LoginUserViewModel
+
+<div class="text-danger" asp-validation-summary="All"></div>
+<form asp-action="Login" method="post" id="login" >
+    <input type="hidden" name="returnUrl" value="@ViewBag.returnUrl" />
+    <div class="form-group">
+        <label asp-for="Email">Adres email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Password">Hasło</label>
+        <div class="text-danger" id="capsLockWarningDiv" hidden>CapsLock jest włączony</div>
+        <input asp-for="Password" type="password" class="form-control" id="capsLockWarningInput" />
+    </div>
+    <row>
+        <button class="btn btn-primary btn-sm" type="submit" >Zaloguj</button>
+        <a class="btn btn-secondary btn-sm" asp-action="Create">Zarejestruj</a>
+    </row>
+</form>

@@ -1,0 +1,14 @@
+﻿@model UserProfile
+
+<img src="~/uploads/@Model.ImagePath" class="rounded-circle" height="200" />
+
+<dl>
+    Nazwa użytkownika
+    <dt>@Model.AppUser.UserName</dt>
+    Wiek
+    <dt>@Model.Age</dt>
+    Płeć
+    <dt>@Model.Gender</dt>
+    Opis
+    <dt>@Model.Description</dt>
+</dl>

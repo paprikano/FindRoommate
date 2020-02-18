@@ -1,0 +1,22 @@
+﻿@model IEnumerable<AdvertImage>
+
+<div class="container col-12">
+    <form methos="post" asp-action="UploadImages" asp-controller="AdvertImage" asp-route-advertId="@ViewBag.AdvertId" enctype="multipart/form-data">
+        <div class="row">
+            <input type="file" name="files" multiple />
+        </div>
+        <button class="btn btn-primary btn-sm" type="submit" style="margin-top: 20px;">Dodaj zdjęcia</button>
+    </form>
+</div>
+<hr />
+<div class="container">
+    <div class="row">
+        @foreach (var a in Model)
+        {
+        <div data-gallery="gallery" id="imageManageGallery" class="col-3">
+                <a class="fa fa-trash m-1 p-1" id="deleteImageIcon" aria-hidden="true" asp-action="Delete" asp-controller="AdvertImage" asp-route-advertImageId="@a.AdvertImageId" asp-route-advertId="@a.AdvertId"></a>
+            <img src="~/uploads/@a.ImagePath" class="img-fluid rounded">
+        </div>
+        }        
+    </div>
+</div>

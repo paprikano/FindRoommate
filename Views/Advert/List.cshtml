@@ -1,0 +1,32 @@
+﻿@model AdvertListViewModel
+
+<row>
+    
+</row>
+
+<div id="advertList">
+    @if (User.Identity.IsAuthenticated)
+    {
+        <a class="fa fa-plus" id="addAdvertIcon" aria-hidden="true" asp-controller="Advert" asp-action="Create"></a>
+    }
+    else
+    {
+        @:Zaloguj, się aby dodać ogłoszenie
+    }
+    <hr />
+    @if (Model.Adverts.Count() == 0)
+    {
+        @:Brak ogłoszeń
+    }
+    else
+    {
+        @foreach (var a in Model.Adverts)
+        {
+            @Html.Partial("AdvertSummary", a);
+        }
+    }
+</div>
+<hr />
+<div page-model="@Model.AdvertPagingInfo" page-action="List" page-classes-enabled="true"
+     page-class="btn" page-class-normal="btn-default" page-class-selected="btn-primary" 
+     page-url-category="@Model.CurrentCategory" class="btn-group"></div>

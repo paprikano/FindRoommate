@@ -1,0 +1,23 @@
+﻿@model AdvertEditViewModel
+
+<form asp-action="Edit" method="post" class="addAndEditForm">
+    <input type="hidden" asp-for="AdvertId" />
+    <div class="form-group">
+        <label asp-for="Title">Tytuł</label>
+        <input asp-for="Title" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Price">Cena</label>
+        <input asp-for="Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Description">Opis</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="Category">Kategoria</label>
+        <input asp-for="Category" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary btn-sm">Zapisz zmiany</button>
+    <a asp-action="List" asp-controller="Advert" class="btn btn-secondary btn-sm">Strona główna</a>
+</form>

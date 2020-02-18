@@ -1,0 +1,17 @@
+﻿@model Advert
+
+<div class="card m-1 p-1">
+    <div class="card-body">
+        <h5 class="card-title">
+            @Model.Title
+            @if (ViewBag.UserId == Model.AppUserId)
+            {
+                <a class="fa fa-trash m-1 p-1" id="deleteAdvertIcon" aria-hidden="true" asp-action="Delete"  asp-route-advertId="@Model.AdvertId"></a>
+                <a class="fa fa-pencil m-1 p-1" id="editAdvertIcon" aria-hidden="true" asp-action="Edit" asp-route-advertId="@Model.AdvertId"></a>
+            }
+        </h5>
+        <hr />
+        <h6 class="card-subtitle mb-2 text-muted">Cena: @Model.Price.ToString("c")</h6>
+        <a asp-action="Details" asp-route-advertId="@Model.AdvertId" class="card-link">Szczegóły</a>
+    </div>
+</div>

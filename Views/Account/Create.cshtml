@@ -1,0 +1,26 @@
+﻿@model CreateUserViewModel
+
+<div asp-validation-summary="All" class="text-danger"></div>
+<form asp-action="Create" method="post" id="create">
+    <div class="form-group">
+        <label asp-for="Name">Nazwa użytkownika</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Email">Adres email</label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+    <div class="form-group registerPassword">
+        <label asp-for="Password">Hasło</label>
+        <input asp-for="Password" type="password" class="form-control passwordInput" />
+    </div>
+    <div class="form-group registerPassword">
+        <label>Powtórz hasło</label>
+        <input type="password" class="form-control confirmPasswordInput" onkeyup="confirmPasswordCheck()" />
+    </div>
+    <row>
+        <div class="text-danger confirmPasswordDiv" hidden>Hasła muszą być takie same</div>
+        <button type="submit" class="btn btn-sm btn-primary saveChangesButton" disabled>Utwórz</button>
+        <a asp-action="List" asp-controller="Advert" class="btn btn-sm btn-secondary">Anuluj</a>
+    </row>
+</form>

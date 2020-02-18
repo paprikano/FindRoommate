@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/js/script.min.js"></script>
+    <link rel="stylesheet" href="~/css/styles.min.css"/>
+    <title>Znajdź współlokatora</title>
+</head>
+<body>
+    <div id="bodyDiv">
+        <div class="navbar navbar-inverse bg-dark col-12" role="navigation">
+            <a class="navbar-brand text-white col-10" asp-action="List" asp-controller="Advert" asp-route-category="">STRONA GŁÓWNA</a>
+            <div class="dropdown col-1">
+                <i class="fa fa-user-o" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                </i>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    @if (!User.Identity.IsAuthenticated)
+                    {
+                        <a class="dropdown-item" asp-action="Create" asp-controller="Account">Zarejestruj się</a>
+                        <a class="dropdown-item" asp-action="Login" asp-controller="Account">Zaloguj się</a>
+                    }
+                    else
+                    {
+                        <a class="dropdown-item" asp-action="Details" asp-controller="UserProfile">Mój Profil</a>
+                        <a class="dropdown-item" asp-action="Edit" asp-controller="UserProfile">Edytuj Profil</a>
+                        <a class="dropdown-item" asp-action="Delete" asp-controller="UserProfile">Usuń Profil</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" asp-action="Edit" asp-controller="Account">Edytuj konto</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#deleteAccountModal">Usuń konto</a>
+                        <a class="dropdown-item" data-toggle="modal" data-target="#logoutModal">Wyloguj się</a>
+                    }
+                </div>
+            </div>
+            <div class="text-white" id="logAs">
+                @if (User.Identity.IsAuthenticated == true)
+                {
+                    @:Zalogowany jako<br />
+                    @User.Identity.Name
+                }
+                else
+                {
+                    @: Niezalogowany
+                }
+            </div>
+        </div>
+        <div class="col-8" id="flashMsgDiv">
+            @Vereyon.Web.FlashMessageHtmlHelper.RenderFlashMessages(Html)
+        </div>
+
+        <div class="row m-1 p-1">
+            <div id="categories" class="col-2">
+                <h4 class="text-center">Kategorie</h4>
+                <hr />
+                @await Component.InvokeAsync("NavigationMenu")
+            </div>            
+            <div class="col-8">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("Modal", new ViewDataDictionary(this.Vi‌​ewData)
+    {
+        ["idModal"] = "logoutModal",
+        ["idButton"] = "logoutButton",
+        ["question"] = "Czy na pewno chcesz się wylogować?"
+        })
+    @Html.Partial("Modal", new ViewDataDictionary(this.Vi‌​ewData)
+    {
+        ["idModal"] = "deleteAccountModal",
+        ["idButton"] = "deleteAccountButton",
+        ["question"] = "Czy na pewno chcesz usunąć konto?"
+        })
+
+    <div id="footer">
+        <h6 class="text-center text-white">Copyright &copy; 2019</h6>
+        <h6 class="text-center text-white">Patryk Domański</h6>
+    </div>
+</body>
+</html>
+
+<script>
+    /*
+    Skrypty nie działają z poziomu pliku "wwwroot/js/script.js",
+    mimo że ładują się do konsoli bez błędów.
+    Aby zadziałały trzeba je zostawić tutaj.
+    Brak czasu, aby dojść jaki jest tego powód.
+    */
+
+
+    //skrypt obsługujący modal do usunięcia konta
+    $("#deleteAccountButton").click(function () {
+        $("#deleteAccountModal").modal('hide');
+        window.location.href = '@Url.Action("Delete","Account")'
+        //$.ajax({
+        //    url: '@Url.Action("Delete", "Account")',
+        //    success: function () {
+        //        location.reload();
+        //    },
+        //});
+    });
+
+    //skrypt obsługujący modal do wylogowania się
+    $("#logoutButton").click(function () {
+        $("#logoutModal").modal('hide');
+        window.location.href = '@Url.Action("Logout","Account")'
+    });
+
+    var passwordInput = $(".passwordInput");
+    var confirmPasswordInput = $(".confirmPasswordInput");
+
+    //skrypt do sprawdzenia czy hasła są identyczne
+    $('.registerPassword input[type="password"]').on("keyup", function () {
+        if (passwordInput.val() == confirmPasswordInput.val() || (passwordInput.val() === "" && confirmPasswordInput.val() === "")) {
+            $(".saveChangesButton").removeAttr("disabled");
+            $(".confirmPasswordDiv").attr("hidden", true);
+        }
+        else {
+            $(".saveChangesButton").attr("disabled", true);
+            $(".confirmPasswordDiv").removeAttr("hidden");
+        }
+    });
+
+    var warningInput = $("#capsLockWarningInput");
+
+    //skrypt do sprawdzenia czy Caps Lock jest wciśnięty przy logowaniu
+    warningInput.keypress(function (e) {
+
+        var character = e.keyCode ? e.keyCode : e.which;
+        var sftKey = e.shiftKey ? e.shiftKey : ((character == 16) ? true : false);
+
+        if (((character >= 65 && character <= 90) && !sftKey) || ((character >= 97 && character <= 122) && sftKey)) {
+            $("#capsLockWarningDiv").removeAttr("hidden");
+        } else {
+            $("#capsLockWarningDiv").attr("hidden", true);
+        }
+    });
+</script>
