@@ -33,13 +33,7 @@ namespace FindRoommate.Models.Advert
         public void EditAdvert(AdvertEditViewModel advertViewModel)
         {
             Advert advert = Adverts.FirstOrDefault(a => a.AdvertId == advertViewModel.AdvertId);
-            if (advert != null)
-            {
-                advert.Title = advertViewModel.Title;
-                advert.Description = advertViewModel.Description;
-                advert.Price = advertViewModel.Price;
-                advert.Category = advertViewModel.Category;
-            }
+            mapper.Map(advertViewModel, advert);
 
             context.SaveChanges();
         }
