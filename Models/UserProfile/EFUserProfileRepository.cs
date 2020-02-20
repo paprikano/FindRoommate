@@ -36,19 +36,16 @@ namespace FindRoommate.Models.UserProfile
             context.SaveChanges();
         }
 
-        public void EditUserProfile(IFormFile file, UserProfileEditViewModel profileViewModel)
+        public void EditUserProfile(IFormFile file, UserProfileEditViewModel userProfileViewModel)
         {
-            UserProfile dbEntry = context.UserProfiles.FirstOrDefault(p => p.UserProfileId == profileViewModel.UserProfileId);
+            UserProfile userProfile = context.UserProfiles.FirstOrDefault(p => p.UserProfileId == userProfileViewModel.UserProfileId);
 
-            if (dbEntry != null)
+            if (userProfile != null)
             {
-                dbEntry.Birthday = profileViewModel.Birthday;
-                dbEntry.Description = profileViewModel.Description;
-                dbEntry.Age = UserProfile.CalculateAge(profileViewModel.Birthday);
-                dbEntry.Gender = profileViewModel.Gender;
+                mapper.Map(userProfileViewModel, userProfile);
 
                 if (file != null)
-                    dbEntry.ImagePath = file.FileName;
+                    userProfile.ImagePath = file.FileName;
             }
 
             context.SaveChanges();
