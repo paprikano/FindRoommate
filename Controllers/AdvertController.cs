@@ -108,7 +108,7 @@ namespace FindRoommate.Controllers
                 advertRepository.EditAdvert(advertViewModel);    
 
                 flashMessage.Confirmation("Ogłoszenie zostało zedytowane");
-                return RedirectToAction(nameof(AdvertController.List), nameof(AdvertController).Replace("Controller", ""));
+                return RedirectToAction(nameof(AdvertController.Details), nameof(AdvertController).Replace("Controller", ""), new { advertId = advertViewModel.AdvertId });
             }
             else
             {

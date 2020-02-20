@@ -101,18 +101,18 @@ namespace FindRoommate.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Edit(IFormFile file, UserProfileEditViewModel profileViewModel)
+        public IActionResult Edit(IFormFile file, UserProfileEditViewModel userProfileViewModel)
         {
             if (ModelState.IsValid)
             {
-                userProfileRepository.EditUserProfile(file, profileViewModel);
+                userProfileRepository.EditUserProfile(file, userProfileViewModel);
 
                 flashMessage.Confirmation("Profil został zedytowany");
-                return RedirectToAction(nameof(AdvertController.List), nameof(AdvertController).Replace("Controller", ""));
+                return RedirectToAction(nameof(UserProfileController.Details), nameof(UserProfileController).Replace("Controller", ""), new { profileId = userProfileViewModel.UserProfileId });
             }
             else
             {
-                return View(profileViewModel);
+                return View(userProfileViewModel);
             }
         }
 
