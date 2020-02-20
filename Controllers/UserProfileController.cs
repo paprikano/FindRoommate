@@ -96,7 +96,7 @@ namespace FindRoommate.Controllers
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var userProfile = userProfileRepository.UserProfiles.FirstOrDefault(p => p.AppUserId == userId);
             UserProfileEditViewModel userProfileViewModel = mapper.Map<UserProfileEditViewModel>(userProfile);
-            return View(userProfile);
+            return View(userProfileViewModel);
         }
 
         [HttpPost]
@@ -108,7 +108,7 @@ namespace FindRoommate.Controllers
                 userProfileRepository.EditUserProfile(file, userProfileViewModel);
 
                 flashMessage.Confirmation("Profil został zedytowany");
-                return RedirectToAction(nameof(UserProfileController.Details), nameof(UserProfileController).Replace("Controller", ""), new { profileId = userProfileViewModel.UserProfileId });
+                return RedirectToAction(nameof(UserProfileController.Details), nameof(UserProfileController).Replace("Controller", ""));
             }
             else
             {
