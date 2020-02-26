@@ -1,6 +1,7 @@
 ﻿@model AdvertEditViewModel
 
 <form asp-action="Edit" method="post" class="addAndEditForm">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="AdvertId" />
     <div class="form-group">
         <label asp-for="Title">Tytuł</label>
