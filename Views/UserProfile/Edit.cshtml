@@ -1,6 +1,7 @@
 ﻿@model UserProfileEditViewModel
 
 <form asp-action="Edit" method="post" class="addAndEditForm">
+    <div asp-validation-summary="All" class="text-danger"></div>
     <input type="hidden" asp-for="UserProfileId" />
     <div class="form-group">
         <label asp-for="Birthday">Data urodzenia</label>
