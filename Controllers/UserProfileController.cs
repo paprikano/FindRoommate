@@ -22,7 +22,6 @@ namespace FindRoommate.Controllers
     {
         private readonly IUserProfileRepository userProfileRepository;
         private readonly UserManager<AppUser> userManager;
-        private readonly ApplicationDbContext context;
         private readonly IHostingEnvironment environment;
         private readonly IFlashMessage flashMessage;
         private readonly IMapper mapper;
@@ -31,7 +30,6 @@ namespace FindRoommate.Controllers
         public UserProfileController(
             IUserProfileRepository userProfileRepository, 
             UserManager<AppUser> userManager,
-            ApplicationDbContext context,
             IHostingEnvironment environment,
             IFlashMessage flashMessage,
             IMapper mapper,
@@ -39,7 +37,6 @@ namespace FindRoommate.Controllers
         {
             this.userProfileRepository = userProfileRepository;
             this.userManager = userManager;
-            this.context = context;
             this.environment = environment;
             this.flashMessage = flashMessage;
             this.mapper = mapper;

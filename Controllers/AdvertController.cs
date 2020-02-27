@@ -19,7 +19,6 @@ namespace FindRoommate.Controllers
     public class AdvertController : Controller
     {
         private readonly IAdvertRepository advertRepository;
-        private readonly ApplicationDbContext context;
         private readonly UserManager<AppUser> userManager;
         private readonly IFlashMessage flashMessage;
         private readonly IMapper mapper;
@@ -27,13 +26,11 @@ namespace FindRoommate.Controllers
 
         public AdvertController(
             IAdvertRepository advertRepository, 
-            ApplicationDbContext context, 
             UserManager<AppUser> userManager,
             IFlashMessage flashMessage,
             IMapper mapper)
         {
             this.advertRepository = advertRepository;
-            this.context = context;
             this.userManager = userManager;
             this.flashMessage = flashMessage;
             this.mapper = mapper;

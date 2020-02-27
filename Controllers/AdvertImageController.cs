@@ -12,21 +12,14 @@ using Vereyon.Web;
 namespace FindRoommate.Controllers
 {
     public class AdvertImageController : Controller
-    {
-
-        private readonly IImageService imageService;
-        private readonly ApplicationDbContext context;
+    {        
         private readonly IFlashMessage flashMessage;
         private readonly IAdvertImageRepository advertImageRepository;
 
         public AdvertImageController(
-            IImageService imageService, 
-            ApplicationDbContext context, 
             IFlashMessage flashMessage,
             IAdvertImageRepository advertImageRepository)
         {
-            this.imageService = imageService;
-            this.context = context;
             this.flashMessage = flashMessage;
             this.advertImageRepository = advertImageRepository;
         }
@@ -43,39 +36,21 @@ namespace FindRoommate.Controllers
         [Authorize]
         public IActionResult UploadImages(List<IFormFile> files, int advertId)
         {
-            foreach (IFormFile file in files)
+            if (files != null)
             {
-                imageService.UploadImage(file);
-                AdvertImage advertImage = new AdvertImage()
-                {
-                    ImagePath = file.FileName,
-                    AdvertId = advertId
-                };
-
-                context.AdvertImages.Add(advertImage);
+                advertImageRepository.UploadAdvertImages(files, advertId);
+                flashMessage.Confirmation("Zdjęcia zostały dodane");
             }
-            context.SaveChanges();
 
-            flashMessage.Confirmation("Zdjęcia zostały dodane");
             return RedirectToAction(nameof(AdvertImageController.ManageImages), nameof(AdvertImageController).Replace("Controller", ""), new { advertId = advertId });
         }
 
 
         public IActionResult Delete(int advertImageId, int advertId)
         {
-            AdvertImage advertImage = advertImageRepository.AdvertImages.FirstOrDefault(a => a.AdvertImageId == advertImageId);
-            if (advertImage != null)
-            {
-                context.Remove(advertImage);
-                context.SaveChanges();
+            advertImageRepository.DeleteAdvertImage(advertImageId);
 
-                flashMessage.Confirmation("Zdjęcie zostało usunięte");
-            }
-            else
-            {
-                flashMessage.Danger("Zdjęcie nie zostało usunięte");
-            }
-
+            flashMessage.Confirmation("Zdjęcie zostało usunięte");
             return RedirectToAction(nameof(AdvertImageController.ManageImages), nameof(AdvertImageController).Replace("Controller", ""), new { advertId = advertId });
         }
     }
