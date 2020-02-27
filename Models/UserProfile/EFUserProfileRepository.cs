@@ -31,6 +31,7 @@ namespace FindRoommate.Models.UserProfile
             UserProfile userProfile = mapper.Map<UserProfile>(userProfileViewModel);
             userProfile.ImagePath = file.FileName;
             userProfile.AppUserId = userId;
+            userProfile.Age = CalculateAge(userProfileViewModel.Birthday);
 
             context.UserProfiles.Add(userProfile);
             context.SaveChanges();
@@ -59,6 +60,12 @@ namespace FindRoommate.Models.UserProfile
                 context.UserProfiles.Remove(dbEntry);
                 context.SaveChanges();
             }
+        }
+
+        public static int CalculateAge(DateTime Birthday)
+        {
+            int age = DateTime.Today.Year - Birthday.Year;
+            return (Birthday.Date > DateTime.Today.AddYears(-age)) ? --age : age;
         }
     }
 }

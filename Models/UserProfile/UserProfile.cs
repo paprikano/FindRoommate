@@ -23,11 +23,5 @@ namespace FindRoommate.Models.UserProfile
 
         public string AppUserId { get; set; }
         public AppUser AppUser { get; set; }
-
-        public static int CalculateAge (DateTime Birthday)
-        {
-            int age = DateTime.Today.Year - Birthday.Year;
-            return (Birthday.Date > DateTime.Today.AddYears(-age)) ? --age : age;
-        }
     }    
 }
