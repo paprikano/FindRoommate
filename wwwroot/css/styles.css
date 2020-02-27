@@ -64,7 +64,8 @@
 
 #dropdownMenuButton {
     font-size: 200%; 
-    float: right
+    float: right;
+    color: white;
 }
 
 #deleteAccountError {
