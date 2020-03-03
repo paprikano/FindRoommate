@@ -1,5 +1,4 @@
-﻿using FindRoommate.Infrastructure;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 
