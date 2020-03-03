@@ -1,4 +1,4 @@
-﻿using FindRoommate.Infrastructure;
+﻿using FindRoommate.Services;
 using FindRoommate.Models.UserProfile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
