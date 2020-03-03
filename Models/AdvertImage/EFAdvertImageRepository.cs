@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FindRoommate.Infrastructure;
+using FindRoommate.Services;
 using Microsoft.AspNetCore.Http;
 
 namespace FindRoommate.Models.AdvertImage
