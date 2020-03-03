@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using FindRoommate.Infrastructure;
+using FindRoommate.Services;
 using FindRoommate.ViewModels.UserProfile;
 using Microsoft.AspNetCore.Http;
 using System;
